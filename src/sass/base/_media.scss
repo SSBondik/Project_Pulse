@@ -1,11 +1,29 @@
 @media (max-width: 991px) {
     .promo {
         &__wrapper {
-            align-items:center;
+            align-items: center;
         }
     }
     .header {
         justify-content: space-around;
+        padding: 0 10px;
+    }
+    .consultation {
+        .title_left {
+            text-align: center;
+        }
+        &__descr {
+            text-align: center;
+        }
+        .feed-form {
+            margin: 0 auto;
+            margin-top: 36px;
+        }
+    }
+    .catalog {
+        &__content {
+            justify-content: center;
+        }
     }
 }
 @media (max-width: 767px) {
@@ -29,6 +47,9 @@
         width: 123px;
         &_main {
             width: 165px;
+        }
+        &_submit {
+            width: 100%;
         }
     }
     .benefits {

@@ -89,6 +89,8 @@
 .slick-slide img
 {
     display: block;
+    width: 80%;
+    height: 80%;
 }
 .slick-slide.slick-loading img
 {
