@@ -50,8 +50,13 @@
         a {
             font-weight: 500;
             font-size: 16px;
-            text-decoration-line: underline;
+            text-decoration-line: none;
             color: #FFFFFF;
+            transition: 0.5s all;
+            &:hover {
+                color: #FFFFFF;
+                text-decoration: underline;
+            }
         }
         
     }
