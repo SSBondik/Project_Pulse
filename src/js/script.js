@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+    //Скрипт для карусели
     $('.carousel__inner').slick({
         speed: 1200,
         adaptiveHeight: true,
@@ -16,12 +17,14 @@ $(document).ready(function(){
         ]
     });
 
+    //Скрипт для табов
     $('ul.catalog__tabs').on('click', 'li:not(.catalog__tab_active)', function() {
         $(this)
           .addClass('catalog__tab_active').siblings().removeClass('catalog__tab_active')
           .closest('div.container').find('div.catalog__content').removeClass('catalog__content_active').eq($(this).index()).addClass('catalog__content_active');
     });
     
+    //Скрипт для поворота наших карточек
     function toggleSlide(item) {
         $(item).each(function(i) {
             $(this).on('click', function(e) {
@@ -34,8 +37,7 @@ $(document).ready(function(){
     toggleSlide('.catalog-item__link');
     toggleSlide('.catalog-item__back');
 
-    //Modal
-    
+    //Модальные окна
     $('[data-modal=consultation]').on('click', function() {
         $('.overlay, #consultation').fadeIn('slow');
     });
@@ -53,6 +55,7 @@ $(document).ready(function(){
         });
     });
 
+    //Валидация форм
     function valideForms(form) {
         $(form).validate({
             rules: {
@@ -83,5 +86,29 @@ $(document).ready(function(){
     valideForms('#consultation form');
     valideForms('#order form');
 
+    //Маска ввода номера на сайте
     $('input[name=phone]').mask("+380 (99) 999-9999");
+
+    //Отправка писем с сайта
+    $('form').submit(function(e) {
+        e.preventDefault(); //отключаем стандартное поведение браузера
+
+        //Конструкция валидатор чтобы не было багов с функцией val("")
+        if(!$(this).valid()) { //Если наша функция не проёдет валидацию то мы этот код прекратим, то есть не сможем отправить пустые поля
+            return; 
+        }  
+
+        $.ajax({ //Отправка данных на сервер
+            type:"POST", //Указываем получить данные с сервера или отдать POST - отдать
+            url: "mailer/smart.php", //Указываем какой обработчик будет обрабатывать данную операцию
+            data: $(this).serialize() //Те данные которые я  хочу отправить на сервер
+        }).done(function() { //То что будет после отправки данных на сервер
+            $(this).find("input").val(""); //Таким образом после отпраки формы мы очистим поля ввода (val)
+            $('#consultation, #order').fadeOut(); //Наши формы будут закрываться
+            $('.overlay, #thanks').fadeIn('slow'); //Будет показываться окно благодарности
+
+            $("form").trigger("reset"); //Все мои формы должны очистится
+        });
+        return false;
+    });
 });
