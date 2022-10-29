@@ -21,7 +21,8 @@ $(document).ready(function(){
     $('ul.catalog__tabs').on('click', 'li:not(.catalog__tab_active)', function() {
         $(this)
           .addClass('catalog__tab_active').siblings().removeClass('catalog__tab_active')
-          .closest('div.container').find('div.catalog__content').removeClass('catalog__content_active').eq($(this).index()).addClass('catalog__content_active');
+          .closest('div.container').find('div.catalog__content')
+          .removeClass('catalog__content_active').eq($(this).index()).addClass('catalog__content_active');
     });
     
     //Скрипт для поворота наших карточек
@@ -31,8 +32,8 @@ $(document).ready(function(){
                 e.preventDefault();
                 $('.catalog-item__content').eq(i).toggleClass('catalog-item__content_active');
                 $('.catalog-item__list').eq(i).toggleClass('catalog-item__list_active');
-            })
-        })
+            });
+        });
     }
     toggleSlide('.catalog-item__link');
     toggleSlide('.catalog-item__back');
@@ -81,7 +82,7 @@ $(document).ready(function(){
                 }
             }
         });
-    };
+    }
     valideForms('#consultation-form');
     valideForms('#consultation form');
     valideForms('#order form');
@@ -90,11 +91,13 @@ $(document).ready(function(){
     $('input[name=phone]').mask("+380 (99) 999-9999");
 
     //Отправка писем с сайта
+    
     $('form').submit(function(e) {
         e.preventDefault(); //отключаем стандартное поведение браузера
 
         //Конструкция валидатор чтобы не было багов с функцией val("")
-        if(!$(this).valid()) { //Если наша функция не проёдет валидацию то мы этот код прекратим, то есть не сможем отправить пустые поля
+        if(!$(this).valid()) { 
+            //Если наша функция не проёдет валидацию то мы этот код прекратим, то есть не сможем отправить пустые поля
             return; 
         }  
 
@@ -111,4 +114,22 @@ $(document).ready(function(){
         });
         return false;
     });
+
+    //Smooth scroll and pageup
+
+    $(window).scroll(function() { //будет появлятся иконка вверх после 1600px
+        if($(this).scrollTop() > 1600) {
+            $('.pageup').fadeIn();
+        } else {
+            $('.pageup').fadeOut();
+        }
+    });
+
+    $("a[href=#up]").click(function(){ //для плавности работы иконки
+        const _href = $(this).attr("href");
+        $("html, body").animate({scrollTop: $(_href).offset().top+"px"});
+        return false;
+    });
+
+    new WOW().init();
 });

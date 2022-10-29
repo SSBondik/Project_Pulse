@@ -2,7 +2,7 @@
     padding: 84px 0 81px 0;
     &__inner {
         position: relative;
-        width: 750px;
+        max-width: 750px;
         margin: 0 auto;
     }
     .slick-prew {
@@ -29,4 +29,26 @@
             height: 50px;
         }
     }
+    .slick-dots {
+        display: flex;
+        justify-content: center;
+        list-style-type: none;
+        li {
+            margin: 10px;
+            button {
+                height: 15px;
+                width: 5px;
+                border-radius: 100%;
+                border: 2px solid rgb(240, 234, 234);
+                font-size: 0;
+            }
+        }
+    }
+    .slick-active {
+        button {
+            background-color: $main-color;
+        }
+    }
+    
+
 }

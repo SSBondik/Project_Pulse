@@ -16,6 +16,13 @@
             display: block;
             margin: 0 auto;
         }
+        &_animated {
+            animation: heartbeat 1.5s ease infinite; //краткая запись того что ниже
+            // animation-name: heartbeat; //какую анимацию будем использвать
+            // animation-duration: 1.5s; //Продолжительность анимации
+            // animation-timing-function: ease; //как будет развиваться анимация между каждой парой ключевых кадров.
+            // animation-iteration-count: infinite; //Анимация будет бесконечной
+        }
     }
     &__subheader {
         margin-top: 35px;
